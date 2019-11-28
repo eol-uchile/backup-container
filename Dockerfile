@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 
-RUN apt-get update && apt-get install -y apt-transport-https wget && \
+RUN apt-get update && apt-get install -y apt-transport-https wget lsb-release && \
   wget https://repo.percona.com/apt/percona-release_0.1-4.$(lsb_release -sc)_all.deb && \
   dpkg -i percona-release_0.1-4.$(lsb_release -sc)_all.deb && \
   rm percona-release_0.1-4.$(lsb_release -sc)_all.deb && \
