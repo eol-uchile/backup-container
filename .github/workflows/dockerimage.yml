@@ -17,14 +17,15 @@ jobs:
       run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag docker.pkg.github.com/${GITHUB_REPOSITORY}/release:${RELEASE_VERSION}
+      run: docker build . --file Dockerfile --tag eoluchile/backup_container:${RELEASE_VERSION}
       env:
         RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
       
     - name: Push
       run: |
-        echo "${GITHUB_PACKAGE_REGISTRY_TOKEN}" | docker login docker.pkg.github.com --username eol-uchile --password-stdin
-        docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/release:${RELEASE_VERSION}
+        echo "${DOCKERHUB_PASSWORD}" | docker login --username ${DOCKERHUB_USER} --password-stdin
+        docker push eoluchile/backup_container:${RELEASE_VERSION}
       env:
-        GITHUB_PACKAGE_REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
