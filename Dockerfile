@@ -10,7 +10,7 @@ RUN apt-get update && apt-get install -y apt-transport-https wget lsb-release &&
 
   apt-get update && \
   apt-get install -y \
-    mongodb-org-shell \
+    mongodb-org-tools \
     mysql-client \
     cron \
     python3-pip \
