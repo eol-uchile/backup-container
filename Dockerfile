@@ -21,4 +21,4 @@ RUN apt-get update && apt-get install -y apt-transport-https wget && \
 
 VOLUME /etc/crontabs/
 
-CMD ["/usr/sbin/crond", "-f"]
+CMD ["/usr/sbin/cron", "-f"]
