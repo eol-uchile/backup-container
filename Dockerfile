@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y apt-transport-https wget lsb-release &&
   apt-get install -y \
     mongodb-org-tools \
     mysql-client \
+    nmap \
     cron \
     python3-pip \
     percona-xtrabackup && \
