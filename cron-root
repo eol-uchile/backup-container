@@ -1,0 +1,3 @@
+0 6 * * * bash /root/scripts/backup.sh > /proc/1/fd/1 2>/proc/1/fd/2
+0 0-5,7-23 * * * bash /root/scripts/backup_hourly.sh > /proc/1/fd/1 2>/proc/1/fd/2
+
