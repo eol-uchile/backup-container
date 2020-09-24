@@ -14,15 +14,7 @@ jobs:
 
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag eoluchile/backup_container:${GITHUB_SHA}
-      
-    - name: Push to dockerhub
-      run: |
-        echo "${DOCKERHUB_PASSWORD}" | docker login --username ${DOCKERHUB_USER} --password-stdin
-        docker push eoluchile/backup_container:${GITHUB_SHA}
-      env:
-        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
-        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}}
-      
+
     - name: Push to Github Container Registry
       run: |
           echo "${CR_PAT}" | docker login ghcr.io -u eolito --password-stdin
