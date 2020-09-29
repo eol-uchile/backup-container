@@ -9,7 +9,7 @@ mysqldump --single-transaction --host="$PLATFORM_MYSQL_HOST" --user="$PLATFORM_M
 
 # Dump mongodb
 mongodump --host "$PLATFORM_MONGODB_HOST" --username "$PLATFORM_MONGODB_USER" --password "$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase edxapp --archive --db edxapp | gzip > $folder/mongodb_edxapp.gz
-mongodump --host "$PLATFORM_MONGODB_HOST" --username "$PLATFORM_MONGODB_USER" --password "$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase cs_comments_service --archive --db cs_comments_service | gzip > $folder/mongodb_cs_comment_service.gz
+mongodump --host "$PLATFORM_MONGODB_HOST" --username "$PLATFORM_MONGODB_USER" --password "$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase edxapp --archive --db cs_comments_service | gzip > $folder/mongodb_cs_comment_service.gz
 
 # Configure rclone
 mkdir -p /root/.config/rclone
@@ -42,7 +42,7 @@ MINIO_PID=$!
 
 for i in $(echo $PLATFORM_S3_BUCKETS | sed "s/,/ /g")
 do
-  rclone copy source:$1 destionation:$i
+  rclone copy --transfers 64 source:$i destination:$i
 done
 
 kill $MINIO_PID
