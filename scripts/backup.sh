@@ -3,9 +3,6 @@
 echo "Starting backup"
 set -eu
 
-source /root/env/config.env
-export PATH=$PATH:/usr/local/bin/
-
 BASE=/tmp/backup
 datenow=$(date +%Y%m%d)
 folder=$BASE/$datenow
