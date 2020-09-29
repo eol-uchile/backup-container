@@ -2,8 +2,6 @@ name: Docker Image CI
 
 on:
   push:
-    tags:
-    - '*'
   schedule:
     - cron: "0 0 1 * *"
 
@@ -14,20 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Set output
-      id: vars
-      run: echo ::set-output name=tag::$(echo ${GITHUB_REF:10})
-
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag eoluchile/backup_container:${RELEASE_VERSION}
-      env:
-        RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-      
-    - name: Push
+      run: docker build . --file Dockerfile --tag eoluchile/backup_container:${GITHUB_SHA}
+
+    - name: Push to Github Container Registry
       run: |
-        echo "${DOCKERHUB_PASSWORD}" | docker login --username ${DOCKERHUB_USER} --password-stdin
-        docker push eoluchile/backup_container:${RELEASE_VERSION}
+          echo "${CR_PAT}" | docker login ghcr.io -u eolito --password-stdin
+          docker tag eoluchile/backup_container:${GITHUB_SHA} ghcr.io/eol-uchile/backup_container:${GITHUB_SHA}
+          docker push ghcr.io/eol-uchile/backup_container:${GITHUB_SHA}
       env:
-        RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
-        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
-        DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+        CR_PAT: ${{ secrets.CR_PAT }}
