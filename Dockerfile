@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 
 RUN apt-get update && apt-get install -y apt-transport-https wget lsb-release && \
-  echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.2 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list && \
+  echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list && \
   wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | apt-key add - && \
   apt-get update && \
   apt-get install -y \
