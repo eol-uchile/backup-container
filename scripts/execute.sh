@@ -47,5 +47,5 @@ done
 
 kill $MINIO_PID
 
-tar -zcf $folder/s3.tar.gz /tmp/s3/
+tar -zcf $folder/s3.tar.gz /tmp/s3/ --remove-files
 rm -rf /tmp/s3
