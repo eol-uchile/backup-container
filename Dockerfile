@@ -60,4 +60,6 @@ ENV PLATFORM_GDRIVE_CLIENT_SECRET ""
 ENV PLATFORM_GDRIVE_SCOPE ""
 ENV PLATFORM_GDRIVE_TOKEN ""
 
+RUN mkdir -p /root/.config/rclone
+
 ADD scripts /root/scripts
