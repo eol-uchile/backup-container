@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y apt-transport-https wget lsb-release &&
   echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-3.6.list && \
   wget -qO - https://www.mongodb.org/static/pgp/server-3.6.asc | apt-key add - && \
   wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - && \
-  sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/postgresql.list' && \
+  echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/postgresql.list && \
   apt-get update && \
   apt-get install -y \
     mongodb-org-tools \
@@ -32,8 +32,9 @@ ENV PLATFORM_NAME ""
 
 # Postgresql server
 ENV PLATFORM_POSTGRESQL_HOST ""
+ENV PLATFORM_POSTGRESQL_PORT ""
 ENV PLATFORM_POSTGRESQL_USER ""
-ENV PLATFORM_POSTGRESQL_PASSWORD ""
+ENV PGPASSWORD ""
 ENV PLATFORM_POSTGRESQL_DATABASES "edxapp edxapp_csmh"
 
 # MySQL server
