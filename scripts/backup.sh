@@ -14,7 +14,7 @@ datenow=$( [ $option == 'daily' ] && echo $(date +%Y%m%d) || echo $(date +%H) )
 folder=$BASE/$datenow
 mkdir -p $folder
 
-outfolder=$option/
+outfolder=$option/$datenow
 
 echo "mkdir done"
 
