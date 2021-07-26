@@ -5,7 +5,7 @@ folder=$1
 remote_folder=$2
 
 # Dump
-if [[ -z "${PLATFORM_POSTGRESQL_HOST}" ]]; then
+if [[ -z $PLATFORM_POSTGRESQL_HOST ]]; then
   echo "Skipping POSTGRESQL";
 else
   pg_dump --host="$PLATFORM_POSTGRESQL_HOST" --port=$PLATFORM_POSTGRESQL_PORT --username="$PLATFORM_POSTGRESQL_USER" $PLATFORM_POSTGRESQL_DATABASES | gzip > $folder/postgresql.gz
