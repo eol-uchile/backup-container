@@ -20,7 +20,7 @@ echo "mkdir done"
 
 # Run backups
 backups=$(ls /root/scripts/services/)
-for s in backups; do
+for s in $backups; do
   echo "Doing $s"
   sh /root/scripts/services/$s $folder $outfolder
 done;
