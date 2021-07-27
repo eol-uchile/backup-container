@@ -28,4 +28,4 @@ fi
 echo "Uploading to Drive"
 rclone copy $folder gdrive:/$PLATFORM_NAME/$remote_folder
 
-rm -fr $folder/mongodb_cs_comment_service.gz
+rm -fr $folder/s3.tar.gz
