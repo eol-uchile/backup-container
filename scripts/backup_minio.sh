@@ -15,7 +15,7 @@ datenow=$(date +%Y%m%d)
 folder=$BASE/$datenow
 mkdir -p $folder
 
-outfolder=$option/$datenow
+outfolder=daily/$datenow
 
 echo "mkdir done"
 
