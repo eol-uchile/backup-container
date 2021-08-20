@@ -18,8 +18,8 @@ server_side_encryption =
 [destination]
 type = s3
 env_auth = false
-access_key_id = $MINIO_ACCESS_KEY
-secret_access_key = $MINIO_SECRET_KEY
+access_key_id = $MINIO_ROOT_USER
+secret_access_key = $MINIO_ROOT_PASSWORD
 region = us-east-1
 endpoint = http://localhost:9000
 location_constraint =
