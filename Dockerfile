@@ -20,12 +20,12 @@ RUN wget https://downloads.rclone.org/v1.53.1/rclone-v1.53.1-linux-amd64.zip && 
   chmod 755 /usr/bin/rclone && \
   rm -rf rclone-v1.53.1-linux-amd64
 
-RUN wget https://dl.min.io/server/minio/release/linux-amd64/minio -O /usr/bin/minio && \
-  chmod +x /usr/bin/minio
+RUN wget https://dl.min.io/server/minio/release/linux-amd64/archive/minio_20210607214051.0.0_amd64.deb && \
+  dpkg -i minio_20210607214051.0.0_amd64.deb
 
 # Keys for minio, which is NOT exposed to the internet
-ENV MINIO_ACCESS_KEY minio
-ENV MINIO_SECRET_KEY localminiosecret
+ENV MINIO_ROOT_USER minio
+ENV MINIO_ROOT_PASSWORD localminiosecret
 
 # Platform name
 ENV PLATFORM_NAME ""
