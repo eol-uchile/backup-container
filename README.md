@@ -10,3 +10,9 @@ Each new service added should do the following steps:
 * Use rclone to send the data upstream
 * Clean the local folder
 If the service is optional it should check that the env vars are set.
+
+## Additional Scripts
+
+* *backup_postgresql.sh* Some processes use only pg, hence a different script
+* *backup_minio.sh* The MinIO backup takes longer so it is run independently
+* *backup_local.sh < hourly,daily>\* < out_folder>\* < date in YYYY-MM-DD format> < days>* Copies the remote backups from daily (all 24) or x number of days from a given date.
