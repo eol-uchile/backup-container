@@ -13,12 +13,14 @@ jobs:
     - uses: actions/checkout@v1
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag eoluchile/backup_container:${GITHUB_SHA}
+      run: |
+        docker build . --file Dockerfile --tag ghcr.io/eol-uchile/backup_container:${GITHUB_SHA}
+        docker build . --file Dockerfile.old --tag ghcr.io/eol-uchile/backup_container:old-${GITHUB_SHA}
 
     - name: Push to Github Container Registry
       run: |
           echo "${CR_PAT}" | docker login ghcr.io -u eolito --password-stdin
-          docker tag eoluchile/backup_container:${GITHUB_SHA} ghcr.io/eol-uchile/backup_container:${GITHUB_SHA}
           docker push ghcr.io/eol-uchile/backup_container:${GITHUB_SHA}
+          docker push ghcr.io/eol-uchile/backup_container:old-${GITHUB_SHA}
       env:
         CR_PAT: ${{ secrets.CR_PAT }}

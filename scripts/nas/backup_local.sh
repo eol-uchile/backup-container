@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# 
+# Download remote backups from Drive
+# to the local system
+#
+
 echo "Starting backup copy to local"
 set -eu
 
@@ -20,14 +25,14 @@ then
     # custom format using +
     datenow=$(date +%Y%m%d -d "$init +$i days")
     remote_folder=$PLATFORM_NAME/$option/$datenow
-    folder=$out/remote_folder
+    folder=$out/$remote_folder
     echo "Downloading $remote_folder from Drive"
-    rclone copy gdrive:/$remote_folder $folder
+    rclone copy gdrive:/$remote_folder $folder    
   done
 else
   for i in {1..24}; do 
     remote_folder=$PLATFORM_NAME/$option/$i
-    folder=$out/remote_folder
+    folder=$out/$remote_folder
     echo "Downloading $remote_folder from Drive"
     rclone copy gdrive:/$remote_folder $folder
   done
