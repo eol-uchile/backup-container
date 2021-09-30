@@ -31,4 +31,14 @@ client_id = $PLATFORM_GRIVE_CLIENT_ID
 client_secret = $PLATFORM_GDRIVE_CLIENT_SECRET
 scope = $PLATFORM_GDRIVE_SCOPE
 token = $PLATFORM_GDRIVE_TOKEN
+
+[nas]
+type = sftp
+host = $NAS_HOST
+user = $NAS_USER
+pass = $NAS_PASS
+key_file_pass = $NAS_KEY_FILE_PASS
+md5sum_command = md5sum
+sha1sum_command = sha1sum
+
 EOF

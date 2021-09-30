@@ -7,13 +7,10 @@ remote_folder=$2
 # Dump mongodb
 mongodump --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --username "$PLATFORM_MONGODB_USER" --password "$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase edxapp --archive --db edxapp | gzip > $folder/mongodb_edxapp.gz
 
-# Copy to nfs
-if [ -d /volume/nfs ]
-then
-tar -cf - $folder | openssl aes-256-cbc -md sha256 -salt -out /volume/nfs/daily/$datenow.tar.enc -pass pass:"$BACKUP_PASSWORD" || true
-fi
+openssl aes-256-cbc -md sha256 -salt -out $folder/mongodb_edxapp.gz.enc -in $folder/mongodb_edxapp.gz -pass pass:"$BACKUP_PASSWORD"
+rm $folder/mongodb_edxapp.gz
 
-echo "Uploading to Drive"
-rclone copy $folder gdrive:/$PLATFORM_NAME/$remote_folder
+echo "Uploading to NAS"
+rclone copy $folder/mongodb_edxapp.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
 
-rm -fr $folder/mongodb_edxapp.gz
+rm -rf $folder/mongodb_edxapp.gz.enc

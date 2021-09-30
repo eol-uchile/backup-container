@@ -19,13 +19,11 @@ kill $MINIO_PID
 tar -zcf $folder/s3.tar.gz /tmp/s3/ --remove-files
 rm -rf /tmp/s3
 
-# Copy to nfs
-if [ -d /volume/nfs ]
-then
-tar -cf - $folder | openssl aes-256-cbc -md sha256 -salt -out /volume/nfs/daily/$datenow.tar.enc -pass pass:"$BACKUP_PASSWORD" || true
-fi
+# Cipher
+openssl aes-256-cbc -md sha256 -salt -out $folder/s3.tar.gz.enc -in $folder/s3.tar.gz -pass pass:"$BACKUP_PASSWORD" 
+rm $folder/s3.tar.gz
 
-echo "Uploading to Drive"
-rclone copy $folder gdrive:/$PLATFORM_NAME/$remote_folder
+echo "Uploading to NAS"
+rclone copy $folder/s3.tar.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
 
-rm -fr $folder/s3.tar.gz
+rm -rf $folder/s3.tar.gz.enc
