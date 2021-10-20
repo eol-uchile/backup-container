@@ -19,10 +19,10 @@ outfolder=$option/$datenow
 echo "mkdir done"
 
 # Run backups
-backups=$(ls /root/scripts/services/)
+backups=$(echo $2 | sed "s/,/ /g")
 for s in $backups; do
   echo "Doing $s"
-  sh /root/scripts/services/$s $folder $outfolder
+  sh /root/scripts/services/$s.sh $folder $outfolder
 done;
 
 rm -fr $BASE
