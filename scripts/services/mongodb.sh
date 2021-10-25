@@ -13,4 +13,9 @@ rm $folder/mongodb_edxapp.gz
 echo "Uploading to NAS"
 rclone copy $folder/mongodb_edxapp.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
 
-rm -rf $folder/mongodb_edxapp.gz.enc
+if [ $3 = 'keep' ]
+then
+  mv -rf $folder/mongodb_edxapp.gz.enc $HOST_MOUNT
+else
+  rm -rf $folder/mongodb_edxapp.gz.enc
+fi

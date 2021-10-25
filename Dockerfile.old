@@ -66,6 +66,9 @@ ENV NAS_HOST ""
 ENV NAS_PASS ""
 ENV NAS_KEY_FILE_PASS  ""
 
+# HOST FS
+ENV HOST_MOUNT "/host_mount"
+
 RUN mkdir -p /root/.config/rclone
 
 ADD scripts /root/scripts

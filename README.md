@@ -5,6 +5,8 @@ Backup databases to remote locations such as S3 and Drive
 The *backup.sh* script receives two arguments:
 * first either to **daily** or **hourly**.
 * The name of the scripts to load or backups to run.
+* **keep** keyword if the backups are to be moved to a safe location instead of removed. This is for backup sync with other applications.
+
 The backup configures rclone and then downloads the remote content from each service.
 
 Each new service added should do the following steps:

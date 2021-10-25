@@ -26,4 +26,10 @@ rm $folder/s3.tar.gz
 echo "Uploading to NAS"
 rclone copy $folder/s3.tar.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
 
-rm -rf $folder/s3.tar.gz.enc
+# Clean or move to mount for recovery
+if [ $3 = 'keep' ]
+then
+  mv -rf $folder/s3.tar.gz.enc $HOST_MOUNT
+else
+  rm -rf $folder/s3.tar.gz.enc
+fi

@@ -14,4 +14,9 @@ rm $folder/mysql.gz
 echo "Uploading to NAS"
 rclone copy $folder/mysql.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
 
-rm -rf $folder/mysql.gz.enc
+if [ $3 = 'keep' ]
+then
+  mv -rf $folder/mysql.gz.enc $HOST_MOUNT
+else
+  rm -rf $folder/mysql.gz.enc
+fi

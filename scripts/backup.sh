@@ -18,11 +18,14 @@ outfolder=$option/$datenow
 
 echo "mkdir done"
 
+# Save delete folders paremeter
+clean_disk=$3
+
 # Run backups
 backups=$(echo $2 | sed "s/,/ /g")
 for s in $backups; do
   echo "Doing $s"
-  sh /root/scripts/services/$s.sh $folder $outfolder
+  sh /root/scripts/services/$s.sh $folder $outfolder $clean_disk
 done;
 
 rm -fr $BASE
