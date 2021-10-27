@@ -15,7 +15,7 @@ rclone copy $folder/mongodb_cs_comment_service.gz.enc nas:/share/eol_backup/$PLA
 
 if [ $3 = 'keep' ]
 then
-  mv -rf $folder/mongodb_cs_comment_service.gz.enc $HOST_MOUNT
+  mv $folder/mongodb_cs_comment_service.gz.enc $HOST_MOUNT
 else
   rm -rf $folder/mongodb_cs_comment_service.gz.enc
 fi
