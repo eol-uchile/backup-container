@@ -29,7 +29,8 @@ rclone copy $folder/s3.tar.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_f
 # Clean or move to mount for recovery
 if [ $3 = 'keep' ]
 then
-  mv $folder/s3.tar.gz.enc $HOST_MOUNT
+  mkdir -p $HOST_MOUNT/$PLATFORM_NAME
+  mv $folder/s3.tar.gz.enc $HOST_MOUNT/$PLATFORM_NAME
 else
   rm -rf $folder/s3.tar.gz.enc
 fi

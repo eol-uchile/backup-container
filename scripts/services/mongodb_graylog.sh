@@ -15,7 +15,8 @@ rclone copy $folder/mongodb_graylog.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/
 
 if [ $3 = 'keep' ]
 then
-  mv $folder/mongodb_graylog.gz.enc $HOST_MOUNT
+  mkdir -p $HOST_MOUNT/$PLATFORM_NAME
+  mv $folder/mongodb_graylog.gz.enc $HOST_MOUNT/$PLATFORM_NAME
 else
   rm -rf $folder/mongodb_graylog.gz.enc
 fi

@@ -15,7 +15,8 @@ rclone copy $folder/postgresql.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remo
 # Clean or move to mount for recovery
 if [ $3 = 'keep' ]
 then
-  mv $folder/postgresql.gz.enc $HOST_MOUNT
+  mkdir -p $HOST_MOUNT/$PLATFORM_NAME
+  mv $folder/postgresql.gz.enc $HOST_MOUNT/$PLATFORM_NAME
 else
   rm $folder/postgresql.gz.enc
 fi

@@ -15,7 +15,8 @@ rclone copy $folder/mongodb_edxapp.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$
 
 if [ $3 = 'keep' ]
 then
-  mv $folder/mongodb_edxapp.gz.enc $HOST_MOUNT
+  mkdir -p $HOST_MOUNT/$PLATFORM_NAME
+  mv $folder/mongodb_edxapp.gz.enc $HOST_MOUNT/$PLATFORM_NAME
 else
   rm -rf $folder/mongodb_edxapp.gz.enc
 fi
