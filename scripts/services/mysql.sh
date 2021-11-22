@@ -16,8 +16,8 @@ rclone copy $folder/mysql.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_fo
 
 if [ $3 = 'keep' ]
 then
-  mkdir -p $HOST_MOUNT/$PLATFORM_NAME
-  mv $folder/mysql.gz.enc $HOST_MOUNT/$PLATFORM_NAME
+  mkdir -p $HOST_MOUNT/$PLATFORM_NAME/mysql
+  mv $folder/mysql.gz.enc $HOST_MOUNT/$PLATFORM_NAME/mysql
 else
   rm -rf $folder/mysql.gz.enc
 fi

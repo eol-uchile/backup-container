@@ -5,8 +5,8 @@ folder=$1
 remote_folder=$2
 
 # Dump s3
-mkdir -p /tmp/s3
-minio server /tmp/s3 &
+mkdir -p $HOST_MOUNT/$PLATFORM_NAME/minio
+minio server $HOST_MOUNT/$PLATFORM_NAME/minio &
 MINIO_PID=$!
 
 for i in $(echo $PLATFORM_S3_BUCKETS | sed "s/,/ /g")
@@ -16,8 +16,7 @@ done
 
 kill $MINIO_PID
 
-tar -zcf $folder/s3.tar.gz /tmp/s3/ --remove-files
-rm -rf /tmp/s3
+tar -zcf $folder/s3.tar.gz $HOST_MOUNT/$PLATFORM_NAME/minio
 
 # Cipher
 openssl aes-256-cbc -md sha256 -salt -out $folder/s3.tar.gz.enc -in $folder/s3.tar.gz -pass pass:"$BACKUP_PASSWORD" 
