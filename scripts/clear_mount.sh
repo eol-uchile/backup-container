@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 shopt -s extglob
-rm -r $HOST_MOUNT/$PLATFORM_NAME/!(minio)/
+rm -rf $HOST_MOUNT/*/!(minio)
