@@ -19,7 +19,7 @@ outfolder=$option/$datenow
 echo "mkdir done"
 
 # Save delete folders paremeter
-clean_disk=$3
+clean_disk=${3:-foo}
 
 # Run backups
 backups=$(echo $2 | sed "s/,/ /g")
