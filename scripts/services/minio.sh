@@ -16,20 +16,13 @@ done
 
 kill $MINIO_PID
 
-tar -zcf $folder/s3.tar.gz $HOST_MOUNT/$PLATFORM_NAME/minio
-
-# Cipher
-openssl aes-256-cbc -md sha256 -salt -out $folder/s3.tar.gz.enc -in $folder/s3.tar.gz -pass pass:"$BACKUP_PASSWORD" 
-rm $folder/s3.tar.gz
-
 echo "Uploading to NAS"
-rclone copy $folder/s3.tar.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
+rclone copy $folder nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
 
 # Clean or move to mount for recovery
 if [ $3 = 'keep' ]
 then
   mkdir -p $HOST_MOUNT/$PLATFORM_NAME
-  mv $folder/s3.tar.gz.enc $HOST_MOUNT/$PLATFORM_NAME
+  mv $folder $HOST_MOUNT/$PLATFORM_NAME
 else
-  rm -rf $folder/s3.tar.gz.enc
-fi
+  rm -rf $folder
