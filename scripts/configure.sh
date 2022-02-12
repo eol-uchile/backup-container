@@ -45,7 +45,7 @@ sha1sum_command = sha1sum
 type = crypt
 remote = nas
 filename_encryption = standard
-directory_name_encryption = true
+directory_name_encryption = false
 password = $NAS_ENCRYPTED_FILE_KEY
 
 EOF
