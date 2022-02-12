@@ -17,7 +17,7 @@ done
 kill $MINIO_PID
 
 echo "Uploading to NAS"
-rclone copy $HOST_MOUNT/$PLATFORM_NAME/minio nasencrypted:/share/eol_backup/$PLATFORM_NAME/$remote_folder
+rclone copy $HOST_MOUNT/$PLATFORM_NAME/minio nasencrypted:/share/eol_backup/$PLATFORM_NAME/$remote_folder/minio
 
 # Clean or move to mount for recovery
 if [ $3 = 'keep' ]
