@@ -41,4 +41,11 @@ key_file_pass = $NAS_KEY_FILE_PASS
 md5sum_command = md5sum
 sha1sum_command = sha1sum
 
+[nasencrypted]
+type = crypt
+remote = nas
+filename_encryption = standard
+directory_name_encryption = true
+password = $NAS_ENCRYPTED_FILE_KEY
+
 EOF
