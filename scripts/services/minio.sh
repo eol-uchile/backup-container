@@ -28,7 +28,7 @@ rm $folder/s3.tar.gz
 echo "Uploading to NAS"
 
 # Copy compressed&encrypted file
-rclone copy $folder/s3.tar.gz.enc nasencrypted:/share/eol_backup/$PLATFORM_NAME/$remote_folder
+rclone copy $folder/s3.tar.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
 
 # Remove compressed&encrypted file
 rm -rf $folder/s3.tar.gz.enc
