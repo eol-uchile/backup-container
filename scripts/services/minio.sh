@@ -16,8 +16,22 @@ done
 
 kill $MINIO_PID
 
+# Compress folder
+tar -zcf $folder/s3.tar.gz $HOST_MOUNT/$PLATFORM_NAME/minio
+
+# Cipher
+openssl aes-256-cbc -md sha256 -salt -out $folder/s3.tar.gz.enc -in $folder/s3.tar.gz -pass pass:"$BACKUP_PASSWORD"
+
+# Remove compressed file
+rm $folder/s3.tar.gz
+
 echo "Uploading to NAS"
-rclone copy $HOST_MOUNT/$PLATFORM_NAME/minio nasencrypted:/share/eol_backup/$PLATFORM_NAME/$remote_folder/minio
+
+# Copy compressed&encrypted file
+rclone copy $folder/s3.tar.gz.enc nasencrypted:/share/eol_backup/$PLATFORM_NAME/$remote_folder
+
+# Remove compressed&encrypted file
+rm -rf $folder/s3.tar.gz.enc
 
 echo "Backup completed"
 
