@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y apt-transport-https wget lsb-release gn
   apt-get update && \
   apt-get install -y \
     mongodb-org-tools \
-    postgresql-client-12 \
+    postgresql-client-13 \
     mysql-client \
     nmap \
     unzip && \
