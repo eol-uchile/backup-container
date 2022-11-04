@@ -7,6 +7,7 @@ mkdir -p /root/.config/rclone
 cat <<EOF >> /root/.config/rclone/rclone.conf
 [source]
 type = s3
+provider = Minio
 env_auth = false
 access_key_id = $PLATFORM_S3_ACCESS_KEY
 secret_access_key = $PLATFORM_S3_SECRET_KEY
@@ -17,6 +18,7 @@ server_side_encryption =
 
 [destination]
 type = s3
+provider = Minio
 env_auth = false
 access_key_id = $MINIO_ROOT_USER
 secret_access_key = $MINIO_ROOT_PASSWORD
