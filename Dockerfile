@@ -14,11 +14,11 @@ RUN apt-get update && apt-get install -y apt-transport-https wget lsb-release gn
     unzip && \
   rm -rf /var/lib/apt/lists/*
 
-RUN wget https://downloads.rclone.org/v1.60.0/rclone-v1.60.0-linux-amd64.zip && \
-  unzip rclone-v1.60.0-linux-amd64.zip && \
-  cp rclone-v1.60.0-linux-amd64/rclone /usr/bin/rclone && \
+RUN wget https://downloads.rclone.org/v1.53.1/rclone-v1.53.1-linux-amd64.zip && \
+  unzip rclone-v1.53.1-linux-amd64.zip && \
+  cp rclone-v1.53.1-linux-amd64/rclone /usr/bin/rclone && \
   chmod 755 /usr/bin/rclone && \
-  rm -rf rclone-v1.60.0-linux-amd64
+  rm -rf rclone-v1.53.1-linux-amd64
 
 RUN wget https://dl.min.io/server/minio/release/linux-amd64/archive/minio_20210607214051.0.0_amd64.deb && \
   dpkg -i minio_20210607214051.0.0_amd64.deb
