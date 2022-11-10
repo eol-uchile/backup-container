@@ -11,7 +11,9 @@ MINIO_PID=$!
 
 for i in $(echo $PLATFORM_S3_BUCKETS | sed "s/,/ /g")
 do
+  echo "============================== STARTED BUCKET ${i} ============================="
   rclone copy -vv --s3-disable-checksum --ignore-errors --ignore-checksum  --transfers 16 source:$i destination:$i || true
+  echo "============================== FINISHED BUCKET ${i} ============================="
 done
 
 kill $MINIO_PID
