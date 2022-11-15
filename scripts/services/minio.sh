@@ -11,11 +11,12 @@ MINIO_PID=$!
 
 for i in $(echo $PLATFORM_S3_BUCKETS | sed "s/,/ /g")
 do
-  rclone copy --ignore-errors --ignore-checksum --transfers 16 source:$i destination:$i || true
+  echo "============================== STARTED BUCKET ${i} ============================="
+  rclone copy --s3-disable-checksum --ignore-errors --ignore-checksum  --transfers 16 source:$i destination:$i || true
+  echo "============================== FINISHED BUCKET ${i} ============================="
 done
 
 kill $MINIO_PID
-
 # Compress folder
 tar -zcf $folder/s3.tar.gz $HOST_MOUNT/$PLATFORM_NAME/minio
 
