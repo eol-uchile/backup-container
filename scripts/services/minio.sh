@@ -18,8 +18,7 @@ done
 
 kill $MINIO_PID
 # Compress folder
-echo "========================= STARTED COMPRESSION ========================"
-tar -zcvf $folder/s3.tar.gz $HOST_MOUNT/$PLATFORM_NAME/minio
+tar -zcf $folder/s3.tar.gz $HOST_MOUNT/$PLATFORM_NAME/minio
 
 # Cipher
 openssl aes-256-cbc -md sha256 -salt -out $folder/s3.tar.gz.enc -in $folder/s3.tar.gz -pass pass:"$BACKUP_PASSWORD"
