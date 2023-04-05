@@ -5,7 +5,7 @@ folder=$1
 remote_folder=$2
 
 # Dump Moodle data
-tar -zcf $folder/moodle.tar.gz $PLATFORM_MOODLE_DATA
+tar -zcvf $folder/moodle.tar.gz $PLATFORM_MOODLE_DATA
 
 # Cipher
 openssl aes-256-cbc -md sha256 -salt -out $folder/moodle.tar.gz.enc -in $folder/moodle.tar.gz -pass pass:"$BACKUP_PASSWORD" 
