@@ -8,10 +8,10 @@ remote_folder=$2
 tar -zcf $folder/moodle.tar.gz $PLATFORM_MOODLE_DATA || rm -fv $folder/moodle.tar.gz
 
 # Cipher
-if [[ -f $folder/moodle.tar.gz ]]
+if [ -f $folder/moodle.tar.gz ]
 then
   openssl aes-256-cbc -md sha256 -salt -out $folder/moodle.tar.gz.enc -in $folder/moodle.tar.gz -pass pass:"$BACKUP_PASSWORD" || rm -fv $folder/moodle.tar.gz.enc
-  if [[ -f $folder/moodle.tar.gz.enc ]]
+  if [ -f $folder/moodle.tar.gz.enc ]
   then
     echo "Uploading to NAS"
     rclone copy $folder/moodle.tar.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
