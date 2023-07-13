@@ -6,7 +6,7 @@ remote_folder=$2
 
 # Dump
 pg_dump --clean --host="$PLATFORM_POSTGRESQL_HOST" --port=$PLATFORM_POSTGRESQL_PORT --username="$PLATFORM_POSTGRESQL_USER" $PLATFORM_POSTGRESQL_DATABASES | gzip > $folder/postgresql.gz || rm -fv $folder/postgresql.gz
-if [ -f $folder/postgresql.gz && -s $folder/postgresql.gz ]
+if [ -f $folder/postgresql.gz ] && [ -s $folder/postgresql.gz ]
 then
   openssl aes-256-cbc -md sha256 -salt -out $folder/postgresql.gz.enc -in $folder/postgresql.gz -pass pass:"$BACKUP_PASSWORD" || rm -fv $folder/postgresql.gz.enc
   rm $folder/postgresql.gz
