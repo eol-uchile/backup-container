@@ -14,6 +14,7 @@ then
   then
     echo "Uploading to NAS"
     rclone copy $folder/postgresql.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
+    echo "Uploaded to NAS"
 
     # Clean or move to mount for recovery
     if [ $3 = 'keep' ]

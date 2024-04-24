@@ -27,14 +27,12 @@ openssl aes-256-cbc -md sha256 -salt -out $folder/s3.tar.gz.enc -in $folder/s3.t
 rm $folder/s3.tar.gz
 
 echo "Uploading to NAS"
-
 # Copy compressed&encrypted file
 rclone copy $folder/s3.tar.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
+echo "Uploaded to NAS"
 
 # Remove compressed&encrypted file
 rm -rf $folder/s3.tar.gz.enc
-
-echo "Backup completed"
 
 # Clean or move to mount for recovery
 # if [ $3 = 'keep' ]

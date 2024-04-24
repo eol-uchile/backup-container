@@ -12,6 +12,7 @@ rm $folder/mongodb_graylog.gz
 
 echo "Uploading to NAS"
 rclone copy $folder/mongodb_graylog.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
+echo "Uploaded to NAS"
 
 if [ $3 = 'keep' ]
 then

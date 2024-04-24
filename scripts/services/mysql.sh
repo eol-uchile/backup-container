@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eu 
+set -eu
 folder=$1
 remote_folder=$2
 
@@ -13,6 +13,7 @@ rm $folder/mysql.gz
 
 echo "Uploading to NAS"
 rclone copy $folder/mysql.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
+echo "Uploaded to NAS"
 
 if [ $3 = 'keep' ]
 then
