@@ -1,6 +1,18 @@
 name: Docker Image CI
 
-on: [push]
+on:
+  push:
+    branches:
+      - 'master'
+      - 'main'
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - 'master'
+      - 'main'
 
 jobs:
   build:
@@ -23,6 +35,6 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Push to Github Container Registry
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
       run: |
         docker push ghcr.io/eol-uchile/backup_container:${GITHUB_SHA}
