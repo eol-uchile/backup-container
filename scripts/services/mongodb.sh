@@ -5,7 +5,7 @@ folder=$1
 remote_folder=$2
 
 # Dump mongodb
-if [ "$PLATFORM_MONGODB_USER" = "" ]
+if [ -z ${PLATFORM_MONGODB_USER+xyz} ]
 then
   mongodump --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --archive --db "$PLATFORM_MONGODB_DB" | gzip > $folder/mongodb_openedx.gz
 else
