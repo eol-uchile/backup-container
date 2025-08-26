@@ -30,52 +30,27 @@ fi
 # Since the backup format is standardized this assumes the following files
 # - mysql.gz
 # - s3.tar.gz
-# - mongodb_edxapp.gz
-# - mongodb_cs_comment_service.gz
+# - mongodb_openedx.gz
 
 # MySQL
 zcat mysql.gz | mysql --host="$PLATFORM_MYSQL_HOST" --port=$PLATFORM_MYSQL_PORT --user="$PLATFORM_MYSQL_ROOT_USER" --password="$PLATFORM_MYSQL_ROOT_PASSWORD"
 
 # MongoDB (Add --drop to purge old data)
-zcat mongodb_edxapp.gz | mongorestore --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --username edxapp --password "$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase edxapp --db edxapp --archive --drop
-zcat mongodb_cs_comment_service.gz | mongorestore --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --username cs_comments_service --password "$PLATFORM_MONGODB_CS_PASSWORD" --authenticationDatabase cs_comments_service --db cs_comments_service --archive --drop
+zcat mongodb_openedx.gz | mongorestore --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --username "$PLATFORM_MONGODB_USER" --password "$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase "$PLATFORM_MONGODB_DB" --db "$PLATFORM_MONGODB_DB" --archive --drop
 
 # Start minio
 if [ $option == 'remote' ]
 then
-  tar -xf s3.tar.gz -C /restore
-  minio server /restore/tmp/s3 &
+  tar -zxf s3.tar.gz -C /restore
+  cd /restore
 else
-  tar -xf s3.tar.gz
-  minio server $backup_dir/tmp/s3 &
+  tar -zxf s3.tar.gz
+  cd ./minio
 fi
-
-# Sync s3 files
-mkdir -p /root/.config/rclone
-cat <<EOF >> /root/.config/rclone/rclone.conf
-[source]
-type = s3
-env_auth = false
-access_key_id = minio
-secret_access_key = localminiosecret
-region = us-east-1
-endpoint = http://127.0.0.1:9000
-location_constraint =
-server_side_encryption =
-[destination]
-type = s3
-env_auth = false
-access_key_id = $PLATFORM_S3_ACCESS_KEY
-secret_access_key = $PLATFORM_S3_SECRET_KEY
-region = us-east-1
-endpoint = $PLATFORM_S3_URL
-location_constraint =
-server_side_encryption =
-EOF
 
 for i in $(echo $PLATFORM_S3_BUCKETS | sed "s/,/ /g")
 do
   echo "Syncing $i"
-  rclone sync source:$i destination:$i
+  rclone sync ./$i target:$i
 done
 

@@ -23,9 +23,7 @@ RUN unzip rclone-v1.70.3-linux-amd64.zip
 RUN cp rclone-v1.70.3-linux-amd64/rclone /usr/bin/rclone
 RUN chmod 755 /usr/bin/rclone
 RUN rm -rf rclone-v1.70.3-linux-amd64
-
-RUN wget --quiet https://dl.min.io/server/minio/release/linux-amd64/archive/minio_20241013133411.0.0_amd64.deb
-RUN dpkg -i minio_20241013133411.0.0_amd64.deb
+RUN rm -v rclone-v1.70.3-linux-amd64.zip
 
 RUN mkdir -p /root/.config/rclone
 
