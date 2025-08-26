@@ -8,7 +8,7 @@ RUN wget --quiet -O - https://www.mongodb.org/static/pgp/server-7.0.asc | apt-ke
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" >> /etc/apt/sources.list.d/postgresql.list
 RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
 RUN echo "deb http://repo.mysql.com/apt/ubuntu jammy mysql-8.4-lts" >> /etc/apt/sources.list.d/mysql.list
-RUN apt-key adv --keyserver pgp.mit.edu --recv-keys B7B3B788A8D3785C
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B7B3B788A8D3785C
 RUN apt-get update
 RUN apt-get install -y \
     mongodb-database-tools \
