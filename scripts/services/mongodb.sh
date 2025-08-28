@@ -7,13 +7,13 @@ remote_folder=$2
 # Dump mongodb
 if [ -z ${PLATFORM_MONGODB_USER+xyz} ]
 then
-  mongodump --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --archive --db "$PLATFORM_MONGODB_DB" | gzip > $folder/mongodb_openedx.gz
+  mongodump --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --db "$PLATFORM_MONGODB_DB" --gzip --archive $folder/mongodb_openedx.gz
 else
-  mongodump --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --username "$PLATFORM_MONGODB_USER" --password "$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase "$PLATFORM_MONGODB_DB" --archive --db "$PLATFORM_MONGODB_DB" | gzip > $folder/mongodb_openedx.gz
+  mongodump --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --username "$PLATFORM_MONGODB_USER" --password "$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase "$PLATFORM_MONGODB_DB" --db "$PLATFORM_MONGODB_DB" --gzip --archive $folder/mongodb_openedx.gz
 fi
 
-openssl aes-256-cbc -md sha256 -salt -out $folder/mongodb_openedx.gz.enc -in $folder/mongodb_openedx.gz -pass pass:"$BACKUP_PASSWORD"
-rm $folder/mongodb_openedx.gz
+# Cipher & delete source
+sh /root/scripts/cipher.sh $folder/mongodb_openedx.gz $folder/mongodb_openedx.gz.enc
 
 echo "Uploading to NAS"
 rclone copy $folder/mongodb_openedx.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
