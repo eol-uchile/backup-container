@@ -3,18 +3,17 @@ FROM ubuntu:jammy
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update
 RUN apt-get install -y apt-transport-https wget lsb-release gnupg
-RUN echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list
-RUN wget --quiet -O - https://www.mongodb.org/static/pgp/server-7.0.asc | apt-key add -
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" >> /etc/apt/sources.list.d/postgresql.list
-RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN echo "deb http://repo.mysql.com/apt/ubuntu jammy mysql-8.4-lts" >> /etc/apt/sources.list.d/mysql.list
+RUN echo "deb [ arch=amd64, signed-by=/usr/share/keyrings/mongodb-server-7.0.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | tee /etc/apt/sources.list.d/mongodb-org-7.0.list
+RUN wget --quiet -O - https://www.mongodb.org/static/pgp/server-7.0.asc | gpg -o /usr/share/keyrings/mongodb-server-7.0.gpg --dearmor
+RUN echo "deb [signed-by=/usr/share/keyrings/postgresql.gpg] http://apt.postgresql.org/pub/repos/apt/ jammy-pgdg main" | tee /etc/apt/sources.list.d/postgresql.list
+RUN wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg -o /usr/share/keyrings/postgresql.gpg --dearmor
+RUN echo "deb http://repo.mysql.com/apt/ubuntu jammy mysql-8.4-lts" | tee /etc/apt/sources.list.d/mysql.list
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B7B3B788A8D3785C
 RUN apt-get update
 RUN apt-get install -y \
     mongodb-database-tools \
     postgresql-client-14 \
     mysql-client=8.4* \
-    nmap \
     unzip
 RUN rm -rf /var/lib/apt/lists/*
 
