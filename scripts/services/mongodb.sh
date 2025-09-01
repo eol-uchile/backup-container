@@ -7,9 +7,9 @@ remote_folder=$2
 # Dump mongodb
 if [ -z ${PLATFORM_MONGODB_USER+xyz} ]
 then
-  mongodump --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --db "$PLATFORM_MONGODB_DB" --gzip --archive $folder/mongodb_openedx.gz
+  mongodump --host="$PLATFORM_MONGODB_HOST" --port=$PLATFORM_MONGODB_PORT --db="$PLATFORM_MONGODB_DB" --gzip --archive=$folder/mongodb_openedx.gz
 else
-  mongodump --host "$PLATFORM_MONGODB_HOST" --port $PLATFORM_MONGODB_PORT --username "$PLATFORM_MONGODB_USER" --password "$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase "$PLATFORM_MONGODB_DB" --db "$PLATFORM_MONGODB_DB" --gzip --archive $folder/mongodb_openedx.gz
+  mongodump --host="$PLATFORM_MONGODB_HOST" --port=$PLATFORM_MONGODB_PORT --username="$PLATFORM_MONGODB_USER" --password="$PLATFORM_MONGODB_PASSWORD" --authenticationDatabase="$PLATFORM_MONGODB_DB" --db="$PLATFORM_MONGODB_DB" --gzip --archive=$folder/mongodb_openedx.gz
 fi
 
 # Cipher & delete source

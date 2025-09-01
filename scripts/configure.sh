@@ -14,7 +14,7 @@ region = us-east-1
 endpoint = $PLATFORM_S3_URL
 location_constraint =
 server_side_encryption =
-provider = On-premise minio
+provider = Minio
 
 [gdrive]
 type = drive

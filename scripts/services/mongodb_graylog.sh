@@ -5,7 +5,7 @@ folder=$1
 remote_folder=$2
 
 # Dump mongodb
-mongodump --host "$PLATFORM_MONGODB_HOST" --gzip --archive $folder/mongodb_graylog.gz
+mongodump --host="$PLATFORM_MONGODB_HOST" --gzip --archive=$folder/mongodb_graylog.gz
 
 # Cipher & delete source
 sh /root/scripts/cipher.sh $folder/mongodb_graylog.gz $folder/mongodb_graylog.gz.enc
