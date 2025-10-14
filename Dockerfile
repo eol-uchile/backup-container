@@ -12,7 +12,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B7B3B788A8D3785C
 RUN apt-get update
 RUN apt-get install -y \
     mongodb-database-tools \
-    postgresql-client-14 \
+    postgresql-client-16 \
     mysql-client=8.4* \
     unzip
 RUN rm -rf /var/lib/apt/lists/*
