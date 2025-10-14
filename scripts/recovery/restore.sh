@@ -16,7 +16,7 @@ option=$1 # local or remote
 backup_dir=$2
 
 # Configure
-sh /root/scripts/configure.sh
+/root/scripts/configure.sh
 
 if [ $option == 'remote' ]
 then

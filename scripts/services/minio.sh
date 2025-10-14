@@ -18,7 +18,7 @@ done
 tar -zcf $folder/s3.tar.gz --directory=$HOST_MOUNT/$PLATFORM_NAME minio
 
 # Cipher & delete source
-sh /root/scripts/cipher.sh $folder/s3.tar.gz $folder/s3.tar.gz.enc
+/root/scripts/cipher.sh $folder/s3.tar.gz $folder/s3.tar.gz.enc
 
 echo "Uploading to NAS"
 # Copy compressed&encrypted file

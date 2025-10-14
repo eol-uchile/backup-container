@@ -13,7 +13,7 @@ else
 fi
 
 # Cipher & delete source
-sh /root/scripts/cipher.sh $folder/mongodb_openedx.gz $folder/mongodb_openedx.gz.enc
+/root/scripts/cipher.sh $folder/mongodb_openedx.gz $folder/mongodb_openedx.gz.enc
 
 echo "Uploading to NAS"
 rclone copy $folder/mongodb_openedx.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
