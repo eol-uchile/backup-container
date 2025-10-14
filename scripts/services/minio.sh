@@ -12,7 +12,7 @@ MINIO_PID=$!
 for i in $(echo $PLATFORM_S3_BUCKETS | sed "s/,/ /g")
 do
   echo "============================== STARTED BUCKET ${i} ============================="
-  rclone copy --s3-disable-checksum --ignore-errors --ignore-checksum  --transfers 16 source:$i destination:$i || true
+  rclone copy --s3-disable-checksum --ignore-errors --ignore-checksum  --transfers 16 source:$i destination:$i
   echo "============================== FINISHED BUCKET ${i} ============================="
 done
 
@@ -33,12 +33,3 @@ echo "Uploaded to NAS"
 
 # Remove compressed&encrypted file
 rm -rf $folder/s3.tar.gz.enc
-
-# Clean or move to mount for recovery
-# if [ $3 = 'keep' ]
-# then
-#   mkdir -p $HOST_MOUNT/$PLATFORM_NAME
-#   mv $HOST_MOUNT/$PLATFORM_NAME/minio $HOST_MOUNT/$PLATFORM_NAME
-# else
-#   rm -rf $HOST_MOUNT/$PLATFORM_NAME/minio
-# fi

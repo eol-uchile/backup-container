@@ -8,7 +8,7 @@ remote_folder=$2
 mysqldump --single-transaction --set-gtid-purged=OFF --host="$PLATFORM_MYSQL_HOST" --port=$PLATFORM_MYSQL_PORT --user="$PLATFORM_MYSQL_USER" --password="$PLATFORM_MYSQL_PASSWORD" --databases $PLATFORM_MYSQL_DATABASES | gzip > $folder/mysql.gz
 
 # Cipher
-openssl aes-256-cbc -md sha256 -salt -out $folder/mysql.gz.enc -in $folder/mysql.gz -pass pass:"$BACKUP_PASSWORD" || true
+openssl aes-256-cbc -md sha256 -salt -out $folder/mysql.gz.enc -in $folder/mysql.gz -pass pass:"$BACKUP_PASSWORD"
 rm $folder/mysql.gz
 
 echo "Uploading to NAS"
