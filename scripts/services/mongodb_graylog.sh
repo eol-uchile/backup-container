@@ -8,7 +8,7 @@ remote_folder=$2
 mongodump --host="$PLATFORM_MONGODB_HOST" --gzip --archive=$folder/mongodb_graylog.gz
 
 # Cipher & delete source
-sh /root/scripts/cipher.sh $folder/mongodb_graylog.gz $folder/mongodb_graylog.gz.enc
+/root/scripts/cipher.sh $folder/mongodb_graylog.gz $folder/mongodb_graylog.gz.enc
 
 echo "Uploading to NAS"
 rclone copy $folder/mongodb_graylog.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder

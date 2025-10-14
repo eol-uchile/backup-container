@@ -9,7 +9,7 @@ echo "Starting backup copy to local"
 set -eu
 
 # Configure
-sh /root/scripts/configure.sh
+/root/scripts/configure.sh
 
 # Daily or hourly
 option=$1

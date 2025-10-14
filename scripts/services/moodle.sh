@@ -8,7 +8,7 @@ remote_folder=$2
 tar -zcf $folder/moodle.tar.gz $PLATFORM_MOODLE_DATA
 
 # Cipher & delete source
-sh /root/scripts/cipher.sh $folder/moodle.tar.gz $folder/moodle.tar.gz.enc
+/root/scripts/cipher.sh $folder/moodle.tar.gz $folder/moodle.tar.gz.enc
 
 echo "Uploading to NAS"
 rclone copy $folder/moodle.tar.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder

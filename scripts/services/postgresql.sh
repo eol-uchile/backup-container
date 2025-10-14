@@ -8,7 +8,7 @@ remote_folder=$2
 pg_dump --clean --host="$PLATFORM_POSTGRESQL_HOST" --port=$PLATFORM_POSTGRESQL_PORT --username="$PLATFORM_POSTGRESQL_USER" $PLATFORM_POSTGRESQL_DATABASES | gzip > $folder/postgresql.gz
 
 # Cipher & delete source
-sh /root/scripts/cipher.sh $folder/postgresql.gz $folder/postgresql.gz.enc
+/root/scripts/cipher.sh $folder/postgresql.gz $folder/postgresql.gz.enc
 
 echo "Uploading to NAS"
 rclone copy $folder/postgresql.gz.enc nas:/share/eol_backup/$PLATFORM_NAME/$remote_folder
