@@ -4,7 +4,11 @@ set -eu
 
 # Configure rclone
 mkdir -p /root/.config/rclone
-cat <<EOF >> /root/.config/rclone/rclone.conf
+touch /root/.config/rclone/rclone.conf
+
+if [ -v PLATFORM_S3_ACCESS_KEY ] && [ -v PLATFORM_S3_URL ]
+then
+  cat <<EOF >> /root/.config/rclone/rclone.conf
 [target]
 type = s3
 env_auth = false
@@ -16,6 +20,12 @@ location_constraint =
 server_side_encryption =
 provider = Minio
 
+EOF
+fi
+
+if [ -v PLATFORM_GRIVE_CLIENT_ID ] && [ -v PLATFORM_GDRIVE_CLIENT_SECRET ] && [ -v PLATFORM_GDRIVE_SCOPE ] && [ -v PLATFORM_GDRIVE_TOKEN ]
+then
+  cat <<EOF >> /root/.config/rclone/rclone.conf
 [gdrive]
 type = drive
 client_id = $PLATFORM_GRIVE_CLIENT_ID
@@ -32,6 +42,12 @@ key_file_pass = $NAS_KEY_FILE_PASS
 md5sum_command = md5sum
 sha1sum_command = sha1sum
 
+EOF
+fi
+
+if [ -v NAS_ENCRYPTED_FILE_KEY ]
+then
+  cat <<EOF >> /root/.config/rclone/rclone.conf
 [nasencrypted]
 type = crypt
 remote = nas:
@@ -40,3 +56,4 @@ directory_name_encryption = false
 password = $NAS_ENCRYPTED_FILE_KEY
 
 EOF
+fi
