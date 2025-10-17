@@ -17,11 +17,11 @@ RUN apt-get install -y \
     unzip
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN wget https://downloads.rclone.org/v1.53.1/rclone-v1.53.1-linux-amd64.zip
-RUN unzip rclone-v1.53.1-linux-amd64.zip
-RUN cp rclone-v1.53.1-linux-amd64/rclone /usr/bin/rclone
+RUN wget --quiet https://downloads.rclone.org/v1.71.1/rclone-v1.71.1-linux-amd64.zip
+RUN unzip rclone-v1.71.1-linux-amd64.zip
+RUN cp rclone-v1.71.1-linux-amd64/rclone /usr/bin/rclone
 RUN chmod 755 /usr/bin/rclone
-RUN rm -rf rclone-v1.53.1-linux-amd64
+RUN rm -rf rclone-v1.71.1-linux-amd64
 
 # Platform name
 ENV PLATFORM_NAME=""
