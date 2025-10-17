@@ -10,7 +10,7 @@ mkdir -p $HOST_MOUNT/$PLATFORM_NAME/minio
 for i in $(echo $PLATFORM_S3_BUCKETS | sed "s/,/ /g")
 do
   echo "============================== STARTED BUCKET ${i} ============================="
-  rclone sync --checksum target:$i $HOST_MOUNT/$PLATFORM_NAME/minio/$i
+  rclone sync --checksum --verbose target:$i $HOST_MOUNT/$PLATFORM_NAME/minio/$i
   echo "============================== FINISHED BUCKET ${i} ============================="
 done
 
