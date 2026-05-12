@@ -9,9 +9,8 @@ set -eu
 # Daily or hourly
 option=$1
 
-BASE=/tmp/backup
 datenow=$( [ $option == 'daily' ] && echo $(date +%Y%m%d) || echo $(date +%H) )
-folder=$BASE/$datenow
+folder=$HOST_MOUNT/$PLATFORM_NAME/tmp
 mkdir -p $folder
 
 outfolder=$option/$datenow
@@ -29,4 +28,4 @@ for s in $backups; do
   echo "Done $s"
 done;
 
-rm -fr $BASE
+rm -fr $folder
