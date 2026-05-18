@@ -24,7 +24,7 @@ clean_disk=${3:-foo}
 backups=$(echo $2 | sed "s/,/ /g")
 for s in $backups; do
   echo "Doing $s"
-  sh /root/scripts/services/$s.sh $folder $outfolder $clean_disk
+  /root/scripts/services/$s.sh $folder $outfolder $clean_disk
   echo "Done $s"
 done;
 

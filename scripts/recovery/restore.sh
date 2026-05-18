@@ -8,7 +8,7 @@
 #
 
 echo "Starting recovery phase"
-set -eu
+set -euo pipefail
 
 option=$1 # local or remote
 # If backup is remote operations will be done from /restore
