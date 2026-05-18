@@ -4,7 +4,7 @@
 # Cipher local backups and copy to public NAS
 #
 
-set -eu
+set -euo pipefail
 
 apt update && apt install ssh-client sshpass
 
