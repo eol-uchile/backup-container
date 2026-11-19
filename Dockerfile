@@ -12,17 +12,18 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B7B3B788A8D3785C
 RUN apt-get update
 RUN apt-get install -y \
     mongodb-database-tools \
-    postgresql-client-16 \
+    postgresql-client-18 \
     mysql-client=8.4* \
     unzip
 RUN rm -rf /var/lib/apt/lists/*
 
-RUN wget --quiet https://downloads.rclone.org/v1.70.3/rclone-v1.70.3-linux-amd64.zip
-RUN unzip rclone-v1.70.3-linux-amd64.zip
-RUN cp rclone-v1.70.3-linux-amd64/rclone /usr/bin/rclone
+ENV RCLONE_VERSION=v1.76.0
+RUN wget --quiet https://downloads.rclone.org/${RCLONE_VERSION}/rclone-${RCLONE_VERSION}-linux-amd64.zip
+RUN unzip rclone-${RCLONE_VERSION}-linux-amd64.zip
+RUN cp rclone-${RCLONE_VERSION}-linux-amd64/rclone /usr/bin/rclone
 RUN chmod 755 /usr/bin/rclone
-RUN rm -rf rclone-v1.70.3-linux-amd64
-RUN rm -v rclone-v1.70.3-linux-amd64.zip
+RUN rm -rf rclone-${RCLONE_VERSION}-linux-amd64
+RUN rm -v rclone-${RCLONE_VERSION}-linux-amd64.zip
 
 RUN mkdir -p /root/.config/rclone
 
