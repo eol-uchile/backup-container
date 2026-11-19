@@ -17,7 +17,7 @@ RUN apt-get install -y \
     unzip
 RUN rm -rf /var/lib/apt/lists/*
 
-ENV RCLONE_VERSION=v1.76.0
+ARG RCLONE_VERSION=v1.76.0
 RUN wget --quiet https://downloads.rclone.org/${RCLONE_VERSION}/rclone-${RCLONE_VERSION}-linux-amd64.zip
 RUN unzip rclone-${RCLONE_VERSION}-linux-amd64.zip
 RUN cp rclone-${RCLONE_VERSION}-linux-amd64/rclone /usr/bin/rclone
