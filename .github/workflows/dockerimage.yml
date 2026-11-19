@@ -21,14 +21,31 @@ jobs:
       packages: write
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v7
 
     - name: Build the Docker image
       run: |
         docker build . --file Dockerfile --tag ghcr.io/eol-uchile/backup_container:${GITHUB_SHA}
 
+    - name: Take OS version
+      id: pkg_ver
+      env:
+          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+      run: |
+        set -eo pipefail
+        export OS_VER=$(docker run --rm -t ghcr.io/eol-uchile/backup_container:${GITHUB_SHA} bash -c 'source /etc/os-release && echo -n $VERSION_CODENAME')
+        export COUNT_PKGS=$(($(gh api --header "Accept: application/vnd.github+json" --header "X-GitHub-Api-Version: 2022-11-28" /orgs/eol-uchile/packages/container/backup_container/versions | jq ".[] | .metadata.container.tags[] | select(test(\"backup_container-${OS_VER}.*\"))" | wc -l)+1))
+        echo "PKG_VER=${OS_VER}-eol${COUNT_PKGS}" >> $GITHUB_OUTPUT
+
+    - name: Print version
+      run: |
+        echo "PKG_VER='${{ steps.pkg_ver.outputs.PKG_VER }}'"
+
+    - name: Assign version tag
+      run: docker tag ghcr.io/eol-uchile/backup_container:${GITHUB_SHA} ghcr.io/eol-uchile/backup_container:${{ steps.pkg_ver.outputs.PKG_VER }}
+
     - name: Login to Github Container Registry
-      uses: docker/login-action@v3
+      uses: docker/login-action@v4
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
@@ -38,3 +55,4 @@ jobs:
       if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
       run: |
         docker push ghcr.io/eol-uchile/backup_container:${GITHUB_SHA}
+        docker push ghcr.io/eol-uchile/backup_container:${{ steps.pkg_ver.outputs.PKG_VER }}
