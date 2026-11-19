@@ -30,11 +30,11 @@ jobs:
     - name: Take OS version
       id: pkg_ver
       env:
-          GH_TOKEN: ${{ steps.app_token.outputs.token }}
+          GH_TOKEN: ${{ github.token }}
       run: |
         set -eo pipefail
         export OS_VER=$(docker run --rm -t ghcr.io/eol-uchile/backup_container:${GITHUB_SHA} bash -c 'source /etc/os-release && echo -n $VERSION_CODENAME')
-        export COUNT_PKGS=$(($(gh api --header "Accept: application/vnd.github+json" --header "X-GitHub-Api-Version: 2022-11-28" /orgs/eol-uchile/packages/container/backup_container/versions | jq ".[] | .metadata.container.tags[] | select(test(\"backup_container-${OS_VER}.*\"))" | wc -l)+1))
+        export COUNT_PKGS=$(($(gh api --header "Accept: application/vnd.github+json" --header "X-GitHub-Api-Version: 2022-11-28" /orgs/eol-uchile/packages/container/backup_container/versions | jq ".[] | .metadata.container.tags[] | select(test(\"${OS_VER}-.*\"))" | wc -l)+1))
         echo "PKG_VER=${OS_VER}-eol${COUNT_PKGS}" >> $GITHUB_OUTPUT
 
     - name: Print version
